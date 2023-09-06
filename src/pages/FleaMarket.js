@@ -1,9 +1,15 @@
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {PostCard} from "../components/post/PostCard/PostCard";
+import axios from "axios";
+import cookie from "react-cookies";
 
 export const FleaMarket = () => {
 	const [region, setRegion] = useState('');
+
+	const [page, setPage] = useState(0);
+	const [count, setCount] = useState(0);
+	const [posts, setPosts] = useState([]);
 
 	const params = useParams();
 	const navigate = useNavigate();
@@ -31,13 +37,14 @@ export const FleaMarket = () => {
 
 	useEffect(() => {
 		async function asd() {
-			const region = params.region;
-			if(!region)
-				console.log("선택하지 않음")
-			else {
-				console.log(params)
-			}
-			console.log(params)
+			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list?address=${params.region}&page=${page}`, {
+				headers: {
+					"Authorization": "Bearer " + cookie.load("access_token")
+				}
+			});
+
+			setPosts(res.data.post_info)
+			setCount(res.data.count)
 		}
 
 		asd();
@@ -77,9 +84,7 @@ export const FleaMarket = () => {
 				</div>
 			</div>
 			<div className="row mt-lg-5" style={{clear: "both"}}>
-				<PostCard />
-				<PostCard />
-				<PostCard />
+				<PostCard posts = {posts}/>
 			</div>
 		</div>
 	)
