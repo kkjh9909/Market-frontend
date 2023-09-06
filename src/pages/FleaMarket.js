@@ -71,7 +71,7 @@ export const FleaMarket = () => {
 					<div className="col">
 					<input
 						placeholder="키워드를 입력하세요"
-						className="form-control w-25"
+						className="form-control w-auto"
 					/>
 					</div>
 				</div>
