@@ -37,7 +37,7 @@ export const FleaMarket = () => {
 
 	useEffect(() => {
 		async function asd() {
-			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list?address=${params.region}&page=${page}`, {
+			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list?address=${region}&page=${page}`, {
 				headers: {
 					"Authorization": "Bearer " + cookie.load("access_token")
 				}
@@ -62,17 +62,17 @@ export const FleaMarket = () => {
 			<div className="w-100 row">
 				<div>
 					<div className="col">
-						<select
-							className="form-control w-25"
-							id="selectOption"
-							value={params.region}
-							onChange={handleOptionChange}
-						>
-						{regions.map(option => (
-							<option key={option.value} value={option.value}>
-								{option.label}
-							</option>
-						))}
+					<select
+						className="form-control w-25"
+						id="selectOption"
+						value={params.region}
+						onChange={handleOptionChange}
+					>
+					{regions.map(option => (
+						<option key={option.value} value={option.value}>
+							{option.label}
+						</option>
+					))}
 					</select>
 					</div>
 					<div className="col">
