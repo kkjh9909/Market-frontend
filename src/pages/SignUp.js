@@ -13,6 +13,17 @@ export const SignUp = () => {
 
 	const navigate = useNavigate();
 
+	const handleImageUpload = async (event) => {
+		const file = event.target.files[0];
+
+		const formData = new FormData();
+		formData.append('file', file);
+
+		const res = await axios.post(`${process.env.REACT_APP_url}/images/upload`, formData)
+
+		setProfileImage(res.data.image_url);
+	}
+
 	const handleSignUp = async () => {
 		const res = await axios.post(`${process.env.REACT_APP_url}/api/user/signup`, {
 			"userId": userId,
@@ -33,6 +44,15 @@ export const SignUp = () => {
 					<div className="card bg-light">
 						<div className="card-body">
 							<h3 className="card-title text-center mb-4">회원가입</h3>
+							<div className="mb-3">
+								<label htmlFor="username" className="form-label">프로필 이미지</label>
+								<input
+									type="file"
+									className="form-control"
+									accept="image/*" // 이미지 파일만 업로드 허용
+									onChange={handleImageUpload} // 파일 선택 시 호출되는 함수
+								/>
+							</div>
 							<form>
 								<div className="mb-3">
 									<label htmlFor="username" className="form-label">아이디</label>
