@@ -8,10 +8,20 @@ export const SignUp = () => {
 	const [password, setPassword] = useState('');
 	const [nickname, setNickname] = useState('');
 	const [username, setUsername] = useState('');
-	const [address, setAddress] = useState('');
+	const [address, setAddress] = useState('seoul');
 	const [profileImage, setProfileImage] = useState('');
 
 	const navigate = useNavigate();
+
+	const regions = [
+		{ value: 'seoul', label: '서울특별시' },
+		{ value: 'busan', label: '부산광역시' },
+		{ value: 'daegu', label: '대구광역시' },
+		{ value: 'incheon', label: '인천광역시' },
+		{ value: 'gwangju', label: '광주광역시' },
+		{ value: 'daejeon', label: '대전광역시' },
+		{ value: 'ulsan', label: '울산광역시' },
+	]
 
 	const handleImageUpload = async (event) => {
 		const file = event.target.files[0];
@@ -35,6 +45,15 @@ export const SignUp = () => {
 		});
 
 		navigate("/login");
+	};
+
+	const handleOptionChange = (e) => {
+		const selected = e.target.value;
+
+		console.log(selected)
+
+		setAddress(selected);
+
 	};
 
 	return (
@@ -94,17 +113,23 @@ export const SignUp = () => {
 										onChange={e => setNickname(e.target.value)}
 									/>
 								</div>
-								<div className="mb-3">
-									<label htmlFor="username" className="form-label">주소</label>
-									<input
-										type="text"
-										className="form-control"
-										id="username"
+								<div className="col">
+									<label htmlFor="username" className="form-label">지역</label>
+									<select
+										className="form-control w-100"
+										id="selectOption"
 										value={address}
-										onChange={e => setAddress(e.target.value)}
-									/>
+										defaultValue="seoul"
+										onChange={handleOptionChange}
+									>
+										{regions.map(option => (
+											<option key={option.value} value={option.value}>
+												{option.label}
+											</option>
+										))}
+									</select>
 								</div>
-								<button type="button" className="btn btn-primary btn-block" onClick={handleSignUp}>회원가입</button>
+								<button type="button" className="btn btn-primary btn-block mt-lg-5" onClick={handleSignUp}>회원가입</button>
 							</form>
 						</div>
 					</div>
