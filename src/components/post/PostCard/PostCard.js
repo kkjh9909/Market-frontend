@@ -21,7 +21,7 @@ export const PostCard = ({ posts }) => {
 							관심{post.favorite_count}, 채팅{post.chatroom_count}
 						</p>
 						<button className="btn btn-primary w-100"
-							onClick={() => nav(`/product/${post.id}`)}
+								onClick={() => nav(`/product/${post.id}`, { state: { postId: post.id } })}
 						>
 							물건 보러 가기
 						</button>
