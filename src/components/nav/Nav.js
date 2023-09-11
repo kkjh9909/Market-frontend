@@ -1,6 +1,20 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import cookie from "react-cookies";
 
 export const Nav = () => {
+
+	const isLogin = cookie.load("access_token");
+
+	const nav = useNavigate();
+
+	const handleLogin = () => {
+		nav("/login")
+	}
+
+	const handleLogout = () => {
+		cookie.remove("access_token");
+	}
+
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
 			<div className="container">
@@ -26,7 +40,25 @@ export const Nav = () => {
 							<li className="nav-item">
 								<Link className="nav-link" to="/flea/busan">검색하기</Link>
 							</li>
+							{
+								isLogin ? (
+									<button
+										className="btn btn-danger"
+										onClick={handleLogout}
+									>
+										로그아웃
+									</button>
+								) : (
+									<button
+										className="btn btn-primary"
+										onClick={handleLogin}
+									>
+										로그인
+									</button>
+								)
+							}
 						</ul>
+
 					</div>
 				</div>
 
