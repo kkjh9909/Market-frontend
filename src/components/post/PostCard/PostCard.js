@@ -1,4 +1,5 @@
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 export const PostCard = ({ posts }) => {
 
@@ -6,7 +7,7 @@ export const PostCard = ({ posts }) => {
 
 	return (
 		<div className="row">
-			{posts.map((post) => (
+			{posts.length > 0 ? posts.map((post) => (
 				<div className="card col-4" key={post.id}>
 					<img src={`${post.thumbnail}`} style={{ height: "20vh" }} alt={post.title} />
 					<div className="card-body text-start">
@@ -27,7 +28,9 @@ export const PostCard = ({ posts }) => {
 						</button>
 					</div>
 				</div>
-			))}
+			)) : (
+				<div><h1>연관 게시물이 존재하지 않아요</h1></div>
+			)}
 		</div>
 	);
 };
