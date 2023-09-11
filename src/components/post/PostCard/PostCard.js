@@ -8,7 +8,7 @@ export const PostCard = ({ posts }) => {
 		<div className="row">
 			{posts.map((post) => (
 				<div className="card col-4" key={post.id}>
-					<img src="/logo192.png" style={{ height: "20vh" }} alt={post.title} />
+					<img src={`${post.thumbnail}`} style={{ height: "20vh" }} alt={post.title} />
 					<div className="card-body text-start">
 						<h5 className="card-title">{post.title}</h5>
 						<p className="card-text">

@@ -37,10 +37,15 @@ export const FleaMarket = () => {
 
 	useEffect(() => {
 		async function asd() {
+			const headers = {};
+
+			const access_token = cookie.load("access_token");
+			if (access_token) {
+				headers["Authorization"] = `Bearer ${access_token}`;
+			}
+
 			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list?address=${region}&page=${page}`, {
-				headers: {
-					"Authorization": "Bearer " + cookie.load("access_token")
-				}
+				headers: headers // 조건에 따라 설정된 headers 객체를 전달
 			});
 
 			setPosts(res.data.post_info)
@@ -80,6 +85,13 @@ export const FleaMarket = () => {
 						placeholder="키워드를 입력하세요"
 						className="form-control w-auto"
 					/>
+
+					</div>
+					<div className="text-end">
+						<button
+							className="btn btn-lg btn-primary"
+							onClick={() => navigate("/product/write")}
+						>글 작성하기</button>
 					</div>
 				</div>
 			</div>
