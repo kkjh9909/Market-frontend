@@ -44,8 +44,8 @@ export const FleaMarket = () => {
 				headers["Authorization"] = `Bearer ${access_token}`;
 			}
 
-			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list?address=${region}&page=${page}`, {
-				headers: headers // 조건에 따라 설정된 headers 객체를 전달
+			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list?address=${params.region}&page=${page}`, {
+				headers: headers
 			});
 
 			setPosts(res.data.post_info)
