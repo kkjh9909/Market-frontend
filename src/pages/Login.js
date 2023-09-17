@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import cookie from "react-cookies";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export const Login = () => {
 	const [userId, setUserId] = useState('');
@@ -11,7 +11,7 @@ export const Login = () => {
 
 	const setCookies = (token) => {
 		const expires = new Date()
-		expires.setMinutes(expires.getMinutes() + 60)
+		expires.setMinutes(expires.getMonth() + 1)
 		cookie.save('access_token', token, {
 			path : '/',
 			expires,
@@ -28,14 +28,6 @@ export const Login = () => {
 		});
 
 		setCookies(res.data.access_token);
-
-		console.log("성공");
-
-		// const address = await axios.get(`${process.env.REACT_APP_url}/api/user/address`, {
-		// 	headers: {
-		// 		"Authorization": "Bearer " + cookie.load("access_token")
-		// 	}
-		// });
 
 		navigate("/home");
 	};
@@ -70,7 +62,7 @@ export const Login = () => {
 								</div>
 								<button type="button" className="btn btn-primary btn-block" onClick={handleLogin}>로그인</button>
 								<div className="text-center mt-3">
-									<a href="#">비밀번호를 잊으셨나요?</a>
+									<Link to={"/signup"}>아이디가 없으신가요?</Link>
 								</div>
 							</form>
 						</div>
