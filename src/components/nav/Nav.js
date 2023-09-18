@@ -33,21 +33,29 @@ export const Nav = () => {
 							</li>
 						</ul>
 						<ul className="navbar-nav">
-							<input
-								placeholder="키워드를 입력하세요"
-								className="form-control w-auto"
-							/>
-							<li className="nav-item">
-								<Link className="nav-link" to="/flea/busan">검색하기</Link>
-							</li>
+							{/*<input*/}
+							{/*	placeholder="키워드를 입력하세요"*/}
+							{/*	className="form-control w-auto"*/}
+							{/*/>*/}
+							{/*<li className="nav-item">*/}
+							{/*	<Link className="nav-link" to="/flea/busan">검색하기</Link>*/}
+							{/*</li>*/}
 							{
 								isLogin ? (
-									<button
-										className="btn btn-danger"
-										onClick={handleLogout}
-									>
-										로그아웃
-									</button>
+									<div className="row">
+										<div className="col-auto">
+											<Link className="nav-link" to={"/profile"}>내 프로필</Link>
+										</div>
+										<div className="col-auto">
+											<button
+												className="btn btn-danger"
+												onClick={handleLogout}
+											>
+												로그아웃
+											</button>
+										</div>
+									</div>
+
 								) : (
 									<button
 										className="btn btn-primary"

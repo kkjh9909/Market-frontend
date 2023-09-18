@@ -9,7 +9,7 @@ export const YourChat = ({key, message}) => {
 	return (
 		<div className="row mt-3">
 			<div className="col-auto">
-				<img src="/logo192.png" style={{width: "50px", height: "50px", borderRadius: "50%"}}/>
+				<img src={message.profile_image} style={{width: "50px", height: "50px", borderRadius: "50%"}}/>
 			</div>
 			<div className="col-auto your-chat inline-block-container">
 				<div className="m-2">

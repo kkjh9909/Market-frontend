@@ -12,74 +12,51 @@ import {Context} from "../context/Context";
 export const ChatRoom = () => {
 
 	const location = useLocation();
+	const {getHeaders} = useContext(Context);
 
 	let client = useRef(null);
 
 	const [message, setMessage] = useState("");
+	const [page, setPage] = useState(0);
 
 	const [messages, setMessages] = useState([]);
 	const [myId, setMyId] = useState(0);
 
 	useEffect(() => {
-
-		const getMessages = async () => {
-			const headers = {};
-
-			const access_token = cookie.load("access_token");
-			if (access_token) {
-				headers["Authorization"] = `Bearer ${access_token}`;
-			}
-
-			const res = await axios.get(`${process.env.REACT_APP_url}/api/chats/${location.state.room_id}`, {
-				headers: headers
-			});
-
-			setMessages(res.data.chatList.chats);
-		}
-
 		setMyId(location.state.my_id)
-		console.log(location.state.my_id);
 
 		client.current = Stomp.over(() => {
 			return new SockJS(`${process.env.REACT_APP_url}/ws-stomp`);
 		});
 
-		const headers = {};
-
-		const access_token = cookie.load("access_token");
-		if (access_token) {
-			headers["Authorization"] = `Bearer ${access_token}`;
-		}
+		const headers = getHeaders();
 
 		client.current.connect(headers, () => {
-			console.log("Connected success")
-
-			const headers = {
-				"Authorization": `Bearer ${cookie.load("access_token")}`
-			}
-
-			// client.current.send(`/app/chat/${location.state.room_id}`, headers, JSON.stringify("test1"))
 
 			client.current.subscribe(`/topic/${location.state.room_id}`, function(message){
-				console.log(message)
-
 				setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
-
-				console.log("receive", JSON.parse(message.body))
-
-				console.log(messages)
 			})
 		})
 
-		getMessages();
-
 		return () => client.current.disconnect();
-	}, [])
+	}, [location.state.room_id])
+
+	useEffect(() => {
+		const getMessages = async () => {
+			const headers = getHeaders();
+
+			const res = await axios.get(`${process.env.REACT_APP_url}/api/chats/${location.state.room_id}?page=${page}`, {
+				headers: headers
+			});
+
+			setMessages([...res.data.messages.chats, ...messages]);
+		}
+
+		getMessages();
+	}, [page])
 
 	const handleSend = () => {
-		const headers = {
-			"Authorization": `Bearer ${cookie.load("access_token")}`
-		}
+		const headers = getHeaders();
 
 		client.current.send(`/app/chat/${location.state.room_id}`, headers, JSON.stringify(message))
 		setMessage("");
@@ -90,9 +67,14 @@ export const ChatRoom = () => {
 		setMessage(msg);
 	}
 
+	const getAdditionalMessages = async () => {
+		setPage(page + 1);
+	}
+
 	return (
 		<div className="container mt-lg-5">
 			<div>
+				<button className="btn btn-light" onClick={getAdditionalMessages}>더불러오기</button>
 				<ChatList
 					messages={messages}
 					me={myId}

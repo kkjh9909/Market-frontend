@@ -36,13 +36,16 @@ export const FleaMarket = () => {
 	]
 
 	useEffect(() => {
-		async function asd() {
+		async function getPosts() {
 			const headers = {};
 
 			const access_token = cookie.load("access_token");
 			if (access_token) {
 				headers["Authorization"] = `Bearer ${access_token}`;
 			}
+
+			if(params.region === undefined)
+				params.region = "";
 
 			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list?address=${params.region}&page=${page}`, {
 				headers: headers
@@ -52,7 +55,7 @@ export const FleaMarket = () => {
 			setCount(res.data.count)
 		}
 
-		asd();
+		getPosts();
 	}, [params.region])
 
 	const handleOptionChange = (e) => {

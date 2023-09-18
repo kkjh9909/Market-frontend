@@ -11,7 +11,7 @@ export const Login = () => {
 
 	const setCookies = (token) => {
 		const expires = new Date()
-		expires.setMinutes(expires.getMonth() + 1)
+		expires.setMonth(expires.getMonth() + 1)
 		cookie.save('access_token', token, {
 			path : '/',
 			expires,
@@ -19,9 +19,6 @@ export const Login = () => {
 	}
 
 	const handleLogin = async () => {
-		console.log('Username:', userId);
-		console.log('Password:', password);
-
 		const res = await axios.post(`${process.env.REACT_APP_url}/api/user/signin`, {
 			"userId": userId,
 			"password": password

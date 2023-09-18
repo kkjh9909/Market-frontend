@@ -123,6 +123,7 @@ export const ProductArticle = () => {
 			headers["Authorization"] = `Bearer ${access_token}`;
 		}
 
+		console.log("durl")
 		const res = await axios.get(`${process.env.REACT_APP_url}/api/chatroom?postId=${location.state.postId}&receiverId=${user.id}`, {
 			headers: headers
 		});
