@@ -1,4 +1,5 @@
 import React, {createContext, useEffect, useState} from "react";
+import cookie from "react-cookies";
 
 const Context = createContext({})
 
@@ -22,8 +23,19 @@ const ContextProvider = ({children}) => {
 		return `${Math.floor(years)}년 전`;
 	}
 
+	const getHeaders = () => {
+		const headers = {};
+
+		const access_token = cookie.load("access_token");
+		if (access_token) {
+			headers["Authorization"] = `Bearer ${access_token}`;
+		}
+
+		return headers;
+	}
+
 	return (
-		<Context.Provider value={{calculateDate}}>
+		<Context.Provider value={{calculateDate, getHeaders}}>
 			{children}
 		</Context.Provider>
 	)
