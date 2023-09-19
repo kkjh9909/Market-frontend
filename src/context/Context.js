@@ -34,8 +34,12 @@ const ContextProvider = ({children}) => {
 		return headers;
 	}
 
+	const formatPrice = (price) => {
+		return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 	return (
-		<Context.Provider value={{calculateDate, getHeaders}}>
+		<Context.Provider value={{calculateDate, getHeaders, formatPrice}}>
 			{children}
 		</Context.Provider>
 	)

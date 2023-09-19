@@ -13,6 +13,7 @@ import {ContextProvider} from "./context/Context";
 import {ChatRoomList} from "./pages/ChatRoomList";
 import {Profile} from "./pages/Profile";
 import {Test} from "./pages/Test";
+import {FavoritePostList} from "./pages/FavoritePostList";
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                         <Route path="/near" element={<FleaMarket />}></Route>
                         <Route path="/chat/:chatroom" element={<ChatRoom />}></Route>
                         <Route path="/profile/chatrooms" element={<ChatRoomList />}></Route>
+                        <Route path="/profile/favorites" element={<FavoritePostList />}></Route>
                         <Route path="/profile" element={<Profile />}></Route>
                         <Route path="/near/:region" element={<FleaMarket />}></Route>
                         <Route path="/chatrooms" element={<ChatRoomList />}></Route>
