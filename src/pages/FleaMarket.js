@@ -1,11 +1,13 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {PostCard} from "../components/post/PostCard/PostCard";
 import axios from "axios";
 import cookie from "react-cookies";
+import {Context} from "../context/Context";
 
 export const FleaMarket = () => {
-	const [region, setRegion] = useState('');
+
+	const {getHeaders} = useContext(Context);
 
 	const [page, setPage] = useState(0);
 	const [count, setCount] = useState(0);
@@ -37,12 +39,7 @@ export const FleaMarket = () => {
 
 	useEffect(() => {
 		async function getPosts() {
-			const headers = {};
-
-			const access_token = cookie.load("access_token");
-			if (access_token) {
-				headers["Authorization"] = `Bearer ${access_token}`;
-			}
+			const headers = getHeaders()
 
 			if(params.region === undefined)
 				params.region = "";
@@ -52,15 +49,15 @@ export const FleaMarket = () => {
 			});
 
 			setPosts(res.data.post_info)
-			setCount(res.data.count)
+			setCount(res.data.count);
+			console.log(res)
 		}
 
 		getPosts();
-	}, [params.region])
+	}, [params.region, page])
 
 	const handleOptionChange = (e) => {
 		const selected = e.target.value;
-		setRegion(selected);
 		navigate(`/flea/${selected}`)
 	};
 
@@ -101,6 +98,13 @@ export const FleaMarket = () => {
 			<div className="row mt-lg-5" style={{clear: "both"}}>
 				<PostCard posts = {posts}/>
 			</div>
+			{
+				(page + 1) * 20 < count ? (
+					<button className="btn btn-primary w-100" onClick={() => setPage(page + 1)}>게시글 더 보기</button>
+				) : (
+					<></>
+				)
+			}
 		</div>
 	)
 }
