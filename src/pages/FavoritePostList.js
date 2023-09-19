@@ -24,7 +24,7 @@ export const FavoritePostList = () => {
 
 	return (
 		<div className="container mt-lg-5">
-			<h1 className="mb-4">채팅방 목록</h1>
+			<h1 className="mb-4">내 관심 목록</h1>
 			<ul className="list-group">
 				{posts.map((post) => (
 					<li key={post.id} className="list-group-item">
