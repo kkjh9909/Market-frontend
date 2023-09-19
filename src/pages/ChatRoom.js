@@ -18,26 +18,36 @@ export const ChatRoom = () => {
 
 	const [message, setMessage] = useState("");
 	const [page, setPage] = useState(0);
+	const [count, setCount] = useState(0);
 
 	const [messages, setMessages] = useState([]);
 	const [myId, setMyId] = useState(0);
 
 	useEffect(() => {
-		setMyId(location.state.my_id)
+		const connectSocket = async () => {
+			const headers = getHeaders();
 
-		client.current = Stomp.over(() => {
-			return new SockJS(`${process.env.REACT_APP_url}/ws-stomp`);
-		});
+			const res = await axios.get(`${process.env.REACT_APP_url}/api/user/id`, {
+				headers: headers
+			});
 
-		const headers = getHeaders();
+			setMyId(res.data.result);
 
-		client.current.connect(headers, () => {
+			client.current = Stomp.over(() => {
+				return new SockJS(`${process.env.REACT_APP_url}/ws-stomp`);
+			});
 
-			client.current.subscribe(`/topic/${location.state.room_id}`, function(message){
-				setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
+
+			client.current.connect(headers, () => {
+
+				client.current.subscribe(`/topic/${location.state.room_id}`, function(message){
+					//setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
+					setMessages([...res.data.messages.chats, message]);
+				})
 			})
-		})
+		}
 
+		connectSocket();
 		return () => client.current.disconnect();
 	}, [location.state.room_id])
 
@@ -49,7 +59,8 @@ export const ChatRoom = () => {
 				headers: headers
 			});
 
-			setMessages([...res.data.messages.chats, ...messages]);
+			setCount(res.data.count);
+			setMessages((prevMessages) => [...prevMessages, ...res.data.messages.chats]);
 		}
 
 		getMessages();
@@ -74,10 +85,17 @@ export const ChatRoom = () => {
 	return (
 		<div className="container mt-lg-5">
 			<div>
-				<button className="btn btn-light" onClick={getAdditionalMessages}>더불러오기</button>
+				{
+					(page + 1) * 20 < count ? (
+						<button className="btn btn-primary" onClick={getAdditionalMessages}>더불러오기</button>
+					) : (
+						<></>
+					)
+				}
 				<ChatList
 					messages={messages}
 					me={myId}
+					message={message}
 				/>
 			</div>
 			<div className="row mt-lg-5">
@@ -92,7 +110,6 @@ export const ChatRoom = () => {
 				<div className="col-auto">
 					<button className="btn btn-warning" onClick={handleSend}>전송</button>
 				</div>
-					<button onClick={() => console.log(messages)}> 메시지리스트</button>
 			</div>
 		</div>
 	)

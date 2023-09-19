@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import cookie from "react-cookies";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -6,10 +6,12 @@ import ImageSlider from "../components/post/ImageSlider";
 import {PostCard} from "../components/post/PostCard/PostCard";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import {Context} from "../context/Context";
 
 export const ProductArticle = () => {
 
 	const location = useLocation();
+	const {getHeaders} = useContext(Context);
 	const nav = useNavigate();
 
 	const [images, setImages] = useState([]);
@@ -50,12 +52,7 @@ export const ProductArticle = () => {
 		const getPost = async () => {
 			window.scrollTo(0, 0);
 
-			const headers = {};
-
-			const access_token = cookie.load("access_token");
-			if (access_token) {
-				headers["Authorization"] = `Bearer ${access_token}`;
-			}
+			const headers = getHeaders();
 
 			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/${location.state.postId}`, {
 				headers: headers
@@ -84,12 +81,7 @@ export const ProductArticle = () => {
 	}, [location.state])
 
 	const handleLike = async () => {
-		const headers = {};
-
-		const access_token = cookie.load("access_token");
-		if (access_token) {
-			headers["Authorization"] = `Bearer ${access_token}`;
-		}
+		const headers = getHeaders();
 
 		const res = await axios.post(`${process.env.REACT_APP_url}/api/product/like/${location.state.postId}`, null, {
 			headers: headers
@@ -100,12 +92,7 @@ export const ProductArticle = () => {
 	}
 
 	const handleDislike = async () => {
-		const headers = {};
-
-		const access_token = cookie.load("access_token");
-		if (access_token) {
-			headers["Authorization"] = `Bearer ${access_token}`;
-		}
+		const headers = getHeaders();
 
 		const res = await axios.delete(`${process.env.REACT_APP_url}/api/product/like/${location.state.postId}`, {
 			headers: headers
@@ -116,14 +103,8 @@ export const ProductArticle = () => {
 	}
 
 	const handleChatting = async () => {
-		const headers = {};
+		const headers = getHeaders();
 
-		const access_token = cookie.load("access_token");
-		if (access_token) {
-			headers["Authorization"] = `Bearer ${access_token}`;
-		}
-
-		console.log("durl")
 		const res = await axios.get(`${process.env.REACT_APP_url}/api/chatroom?postId=${location.state.postId}&receiverId=${user.id}`, {
 			headers: headers
 		});

@@ -1,13 +1,25 @@
 import './Chat.css';
 import {MyChat} from "./MyChat";
 import {YourChat} from "./YourChat";
+import {useEffect, useRef} from "react";
 
-export const ChatList = ({messages, me}) => {
+export const ChatList = ({messages, me, message}) => {
+	const scrollContainerRef = useRef();
+	const scrollToBottom = () => {
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+		}
+	};
+
+	useEffect(() => {
+		scrollToBottom();
+	}, [message]);
+
 	return (
-		<div className="scroll-container chat-bg">
+		<div className="scroll-container chat-bg"  ref={scrollContainerRef}>
 			<div className="content">
 					{
-						messages.map(message => (
+						messages.reverse().map(message => (
 							message.sender_id === me ? (
 								<MyChat
 									key={message.id}
