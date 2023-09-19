@@ -14,6 +14,7 @@ import {ChatRoomList} from "./pages/ChatRoomList";
 import {Profile} from "./pages/Profile";
 import {Test} from "./pages/Test";
 import {FavoritePostList} from "./pages/FavoritePostList";
+import {MyPostList} from "./pages/MyPostList";
 
 function App() {
     return (
@@ -32,9 +33,9 @@ function App() {
                         <Route path="/chat/:chatroom" element={<ChatRoom />}></Route>
                         <Route path="/profile/chatrooms" element={<ChatRoomList />}></Route>
                         <Route path="/profile/favorites" element={<FavoritePostList />}></Route>
+                        <Route path="/profile/posts" element={<MyPostList />}></Route>
                         <Route path="/profile" element={<Profile />}></Route>
                         <Route path="/near/:region" element={<FleaMarket />}></Route>
-                        <Route path="/chatrooms" element={<ChatRoomList />}></Route>
                         <Route path="/test" element={<Test />}></Route>
                     </Routes>
                 </BrowserRouter>

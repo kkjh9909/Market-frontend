@@ -25,8 +25,16 @@ export const Profile = () => {
 		getProfile();
 	}, [])
 
-	const getChatList = () => {
-		nav('/chatrooms')
+	const navChatList = () => {
+		nav('chatrooms')
+	}
+
+	const navFavoriteList = () => {
+		nav('favorites')
+	}
+
+	const navPostList = () => {
+		nav('posts')
 	}
 
 	return (
@@ -47,13 +55,13 @@ export const Profile = () => {
 					<h1>중고 거래</h1>
 				</div>
 				<div className="mt-lg-2">
-					<button className="btn btn-light w-100">내 관심글 목록</button>
+					<button className="btn btn-light w-100" onClick={navFavoriteList}>내 관심글 목록</button>
 				</div>
 				<div className="mt-lg-2">
-					<button className="btn btn-light w-100">내 판매글 목록</button>
+					<button className="btn btn-light w-100" onClick={navPostList}>내 판매글 목록</button>
 				</div>
 				<div className="mt-lg-2">
-					<button className="btn btn-light w-100" onClick={getChatList}>내 채팅 목록</button>
+					<button className="btn btn-light w-100" onClick={navChatList}>내 채팅 목록</button>
 				</div>
 				<div className="text-start mt-lg-5">
 					<h1>일상</h1>
