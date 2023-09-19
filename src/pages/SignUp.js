@@ -8,19 +8,19 @@ export const SignUp = () => {
 	const [password, setPassword] = useState('');
 	const [nickname, setNickname] = useState('');
 	const [username, setUsername] = useState('');
-	const [address, setAddress] = useState('seoul');
+	const [address, setAddress] = useState('서울');
 	const [profileImage, setProfileImage] = useState('');
 
 	const navigate = useNavigate();
 
 	const regions = [
-		{ value: 'seoul', label: '서울특별시' },
-		{ value: 'busan', label: '부산광역시' },
-		{ value: 'daegu', label: '대구광역시' },
-		{ value: 'incheon', label: '인천광역시' },
-		{ value: 'gwangju', label: '광주광역시' },
-		{ value: 'daejeon', label: '대전광역시' },
-		{ value: 'ulsan', label: '울산광역시' },
+		{ value: '서울', label: '서울특별시' },
+		{ value: '부산', label: '부산광역시' },
+		{ value: '대구', label: '대구광역시' },
+		{ value: '인천', label: '인천광역시' },
+		{ value: '광주', label: '광주광역시' },
+		{ value: '대전', label: '대전광역시' },
+		{ value: '울산', label: '울산광역시' },
 	]
 
 	const handleImageUpload = async (event) => {

@@ -17,24 +17,24 @@ export const FleaMarket = () => {
 	const navigate = useNavigate();
 
 	const regionKorean = {
-		seoul: '서울특별시',
-		busan: '부산광역시',
-		daegu: '대구광역시',
-		incheon: '인천광역시',
-		gwangju: '광주광역시',
-		daejeon: '대전광역시',
-		ulsan: '울산광역시',
+		서울: '서울특별시',
+		부산: '부산광역시',
+		대구: '대구광역시',
+		인천: '인천광역시',
+		광주: '광주광역시',
+		대전: '대전광역시',
+		울산: '울산광역시',
 	}
 
 	const regions = [
 		{ value: '', label: '지역을 선택하세요' },
-		{ value: 'seoul', label: '서울특별시' },
-		{ value: 'busan', label: '부산광역시' },
-		{ value: 'daegu', label: '대구광역시' },
-		{ value: 'incheon', label: '인천광역시' },
-		{ value: 'gwangju', label: '광주광역시' },
-		{ value: 'daejeon', label: '대전광역시' },
-		{ value: 'ulsan', label: '울산광역시' },
+		{ value: '서울', label: '서울특별시' },
+		{ value: '부산', label: '부산광역시' },
+		{ value: '대구', label: '대구광역시' },
+		{ value: '인천', label: '인천광역시' },
+		{ value: '광주', label: '광주광역시' },
+		{ value: '대전', label: '대전광역시' },
+		{ value: '울산', label: '울산광역시' },
 	]
 
 	useEffect(() => {
@@ -48,9 +48,8 @@ export const FleaMarket = () => {
 				headers: headers
 			});
 
-			setPosts(res.data.post_info)
-			setCount(res.data.count);
-			console.log(res)
+			setPosts(res.data.result.posts)
+			setCount(res.data.result.count);
 		}
 
 		getPosts();
