@@ -1,8 +1,11 @@
 import {useState} from "react";
 import axios from "axios";
 import cookie from "react-cookies";
+import {useNavigate} from "react-router-dom";
 
 export const ProductSaleWrite = () => {
+
+	const nav = useNavigate();
 
 	const [rows, setRows] = useState(1);
 	const [title, setTitle] = useState("");
@@ -49,7 +52,7 @@ export const ProductSaleWrite = () => {
 			}
 		})
 
-		console.log(res)
+		nav("/flea");
 	}
 
 	return (
