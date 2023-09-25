@@ -15,6 +15,7 @@ import {Profile} from "./pages/Profile";
 import {Test} from "./pages/Test";
 import {FavoritePostList} from "./pages/FavoritePostList";
 import {MyPostList} from "./pages/MyPostList";
+import {EditProductArticle} from "./pages/EditProductArticle";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                         <Route path="/signup" element={<SignUp />}></Route>
                         <Route path="/product/write" element={<ProductSaleWrite />}></Route>
                         <Route path="/product/:postId" element={<ProductArticle />}></Route>
+                        <Route path="/product/:postId/edit" element={<EditProductArticle />}></Route>
                         <Route path="/flea" element={<FleaMarket />}></Route>
                         <Route path="/flea/:region" element={<FleaMarket />}></Route>
                         <Route path="/near" element={<FleaMarket />}></Route>

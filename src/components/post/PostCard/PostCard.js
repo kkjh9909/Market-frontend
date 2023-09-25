@@ -1,8 +1,10 @@
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
+import {Context} from "../../../context/Context";
 
 export const PostCard = ({ posts }) => {
 
+	const {formatPrice} = useContext(Context);
 	const nav = useNavigate();
 
 	return (
@@ -12,9 +14,9 @@ export const PostCard = ({ posts }) => {
 					<img src={`${post.thumbnail}`} style={{ height: "20vh" }} alt={post.title} />
 					<div className="card-body text-start">
 						<h5 className="card-title">{post.title}</h5>
-						<p className="card-text">
-							{post.price}원
-						</p>
+						<strong className="card-text">
+							{formatPrice(post.price)}원
+						</strong>
 						<p className="card-text">
 							{post.address}
 						</p>

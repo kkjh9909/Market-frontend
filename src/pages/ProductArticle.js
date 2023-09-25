@@ -89,6 +89,20 @@ export const ProductArticle = () => {
 		nav(`/chat/${res.data.chatroom_number}`, { state: { room_id: res.data.chatroom_number, my_id: res.data.my_id } })
 	}
 
+	const handleEdit = () => {
+		nav('edit', {state: {postId: location.state.postId}});
+	}
+
+	const handleDelete = async () => {
+		const headers = getHeaders();
+
+		const res = await axios.delete(`${process.env.REACT_APP_url}/api/product/post/${location.state.postId}/delete`, {
+			headers: headers
+		});
+
+		nav('/flea');
+	}
+
 	return (
 		<div className="container mt-lg-5">
 			<div className="text-start">
@@ -104,8 +118,8 @@ export const ProductArticle = () => {
 						{
 							isMine ? (
 								<div className="row w-25">
-									<button className="col btn btn-warning">수정하기</button>
-									<button className="col btn btn-danger ms-2">삭제하기</button>
+									<button className="col btn btn-warning" onClick={handleEdit}>수정하기</button>
+									<button className="col btn btn-danger ms-2" onClick={handleDelete}>삭제하기</button>
 								</div>
 							) : (
 								<div></div>	
