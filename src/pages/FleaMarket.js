@@ -4,6 +4,7 @@ import {PostCard} from "../components/post/PostCard/PostCard";
 import axios from "axios";
 import cookie from "react-cookies";
 import {Context} from "../context/Context";
+import SearchIcon from '@mui/icons-material/Search';
 
 export const FleaMarket = () => {
 
@@ -12,6 +13,7 @@ export const FleaMarket = () => {
 	const [page, setPage] = useState(0);
 	const [count, setCount] = useState(0);
 	const [posts, setPosts] = useState([]);
+	const [keyword, setKeyword] = useState("");
 
 	const params = useParams();
 	const navigate = useNavigate();
@@ -60,6 +62,27 @@ export const FleaMarket = () => {
 		navigate(`/flea/${selected}`)
 	};
 
+	const handleKeyWordSearch = (e) => {
+		setKeyword(e.target.value);
+	}
+
+	const handleSearch = async () => {
+		setPage(0);
+		const headers = getHeaders()
+
+		const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/search?keyword=${keyword}&page=${page}`, {
+			headers: headers
+		});
+
+		setPosts(res.data.result.posts);
+		setCount(res.data.result.count);
+	}
+
+	const handleKeyPress = (e) => {
+		if (e.key === 'Enter')
+			handleSearch();
+	};
+
 	return (
 		<div className="container mt-lg-5">
 			<h1>{regionKorean[params.region] || ''} 인기 매물</h1>
@@ -80,13 +103,24 @@ export const FleaMarket = () => {
 					</select>
 					</div>
 					<div className="col">
-					<input
-						placeholder="키워드를 입력하세요"
-						className="form-control w-auto"
-					/>
-
+						<div className="row">
+							<div className="col">
+								<input
+									placeholder="키워드를 입력하세요"
+									className="form-control"
+									value={keyword}
+									onChange={handleKeyWordSearch}
+									onKeyDown={handleKeyPress}
+								/>
+							</div>
+							<div className="col-auto">
+								<button className="btn" onClick={handleSearch}>
+									<SearchIcon />
+								</button>
+							</div>
+						</div>
 					</div>
-					<div className="text-end">
+					<div className="text-end mt-5">
 						<button
 							className="btn btn-lg btn-primary"
 							onClick={() => navigate("/product/write")}
