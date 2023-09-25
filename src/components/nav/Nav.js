@@ -12,7 +12,12 @@ export const Nav = () => {
 	}
 
 	const handleLogout = () => {
-		cookie.remove("access_token");
+		const result = window.confirm("로그아웃 하시겠습니까?");
+		if (result) {
+			cookie.remove("access_token");
+			nav('/home');
+			window.location.reload();
+		}
 	}
 
 	return (
@@ -33,13 +38,6 @@ export const Nav = () => {
 							</li>
 						</ul>
 						<ul className="navbar-nav">
-							{/*<input*/}
-							{/*	placeholder="키워드를 입력하세요"*/}
-							{/*	className="form-control w-auto"*/}
-							{/*/>*/}
-							{/*<li className="nav-item">*/}
-							{/*	<Link className="nav-link" to="/flea/busan">검색하기</Link>*/}
-							{/*</li>*/}
 							{
 								isLogin ? (
 									<div className="row">
