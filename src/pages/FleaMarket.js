@@ -70,7 +70,9 @@ export const FleaMarket = () => {
 		setPage(0);
 		const headers = getHeaders()
 
-		const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/search?keyword=${keyword}&page=${page}`, {
+		console.log(params.region)
+
+		const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/search?address=${params.region}&keyword=${keyword}&page=${page}`, {
 			headers: headers
 		});
 
