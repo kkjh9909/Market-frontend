@@ -16,6 +16,8 @@ import {Test} from "./pages/Test";
 import {FavoritePostList} from "./pages/FavoritePostList";
 import {MyPostList} from "./pages/MyPostList";
 import {EditProductArticle} from "./pages/EditProductArticle";
+import {Neighborhood} from "./pages/Neighborhood";
+import {NeighborhoodWrite} from "./pages/NeighborhoodWrite";
 
 function App() {
     return (
@@ -37,7 +39,10 @@ function App() {
                         <Route path="/profile/favorites" element={<FavoritePostList />}></Route>
                         <Route path="/profile/posts" element={<MyPostList />}></Route>
                         <Route path="/profile" element={<Profile />}></Route>
-                        <Route path="/near/:region" element={<FleaMarket />}></Route>
+
+                        {/*동네 생활*/}
+                        <Route path="/neighbor" element={<Neighborhood />}></Route>
+                        <Route path="/neighbor/write" element={<NeighborhoodWrite />}></Route>
                         <Route path="/test" element={<Test />}></Route>
                     </Routes>
                 </BrowserRouter>

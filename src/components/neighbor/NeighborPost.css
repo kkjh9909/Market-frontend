@@ -1,0 +1,11 @@
+
+.category {
+    display: inline-block;
+    background-color: #F1F1F1;
+}
+
+.content-body {
+    white-space: nowrap; /* 텍스트를 줄 바꿈하지 않고 한 줄에 표시 */
+    overflow: hidden; /* 텍스트 내용이 영역을 넘치면 숨김 처리 */
+    text-overflow: ellipsis; /* 텍스트 내용이 생략될 때 (...)으로 표시 */
+}
