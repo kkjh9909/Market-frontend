@@ -3,6 +3,7 @@ import axios from "axios";
 import cookie from "react-cookies";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Context} from "../context/Context";
+import {ImageUploader} from "../lib/ImageUploader";
 
 export const EditProductArticle = () => {
 
@@ -27,8 +28,6 @@ export const EditProductArticle = () => {
 		const getDetails = async () => {
 			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/${postId}/edit`, {headers});
 
-			console.log(res)
-
 			setTitle(res.data.result.title);
 			setPrice(res.data.result.price);
 			setContent(res.data.result.content);
@@ -49,18 +48,9 @@ export const EditProductArticle = () => {
 	const handleImageUpload = async (event) => {
 		const file = event.target.files[0];
 
-		const formData = new FormData();
-		formData.append('file', file);
+		const image = await ImageUploader(file)
 
-		const res = await axios.post(`${process.env.REACT_APP_url}/images/upload`,
-			formData,
-			{
-				headers: {
-					"Authorization": "Bearer " + cookie.load("access_token")
-				}
-			})
-
-		setImages([...images, res.data.image_url])
+		setImages([...images, image])
 	}
 
 	const handleSubmit = async () => {
@@ -76,8 +66,6 @@ export const EditProductArticle = () => {
 				"Authorization": "Bearer " + cookie.load("access_token")
 			}
 		})
-
-		console.log(postId);
 
 		nav(`/product/${postId}`, { state: { postId: postId } });
 	}

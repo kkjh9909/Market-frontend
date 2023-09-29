@@ -2,6 +2,7 @@ import {useState} from "react";
 import axios from "axios";
 import cookie from "react-cookies";
 import {useNavigate} from "react-router-dom";
+import {ImageUploader} from "../lib/ImageUploader";
 
 export const ProductSaleWrite = () => {
 
@@ -24,18 +25,9 @@ export const ProductSaleWrite = () => {
 	const handleImageUpload = async (event) => {
 		const file = event.target.files[0];
 
-		const formData = new FormData();
-		formData.append('file', file);
+		const image = await ImageUploader(file);
 
-		const res = await axios.post(`${process.env.REACT_APP_url}/images/upload`,
-			formData,
-			{
-				headers: {
-					"Authorization": "Bearer " + cookie.load("access_token")
-				}
-			})
-
-		setImages([...images, res.data.image_url])
+		setImages([...images, image]);
 	}
 
 	const handleSubmit = async () => {
