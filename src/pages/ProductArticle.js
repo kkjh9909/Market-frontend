@@ -37,8 +37,8 @@ export const ProductArticle = () => {
 			
 			setPrice(res.data.post_info.price);
 			setImages(res.data.post_info.images);
-			setIsMine(res.data.post_info.my_post);
-			setIsLike(res.data.post_info.is_like);
+			setIsMine(res.data.user_info.my_post);
+			setIsLike(res.data.user_info.is_like);
 			setLikes(res.data.post_info.favorite_count);
 
 			setPost(res.data.post_info);
