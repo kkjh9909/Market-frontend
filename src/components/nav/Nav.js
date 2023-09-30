@@ -34,7 +34,7 @@ export const Nav = () => {
 								<Link className="nav-link" to="/flea">중고거래</Link>
 							</li>
 							<li className="nav-item">
-								<Link className="nav-link" to="/neighborhood">동네생활</Link>
+								<Link className="nav-link" to="/neighbor">동네생활</Link>
 							</li>
 						</ul>
 						<ul className="navbar-nav">
