@@ -44,7 +44,9 @@ export const ProductSaleWrite = () => {
 			}
 		})
 
-		nav(`/product/${res.data.result.post_id}`);
+		const post_id = res.data.result.post_id;
+
+		nav(`/product/${post_id}`,  { state: { postId: post_id } });
 	}
 
 	return (
