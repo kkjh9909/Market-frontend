@@ -31,7 +31,7 @@ export const NeighborArticle = () => {
 			setImages(res.data.result.post_info.images);
 			setIsMine(res.data.result.user_info.my_post);
 			setIsLike(res.data.result.user_info.is_like);
-			setLikes(res.data.result.post_info.favorite_count);
+			setLikes(res.data.result.post_info.like_count);
 
 			setPost(res.data.result.post_info);
 			setUser(res.data.result.user_info);
@@ -51,17 +51,27 @@ export const NeighborArticle = () => {
 	const handleDislike = async () => {
 		const headers = getHeaders();
 
-		const res = await axios.post(`${process.env.REACT_APP_url}/api/product/like/${location.state.postId}`, null, {
+		const res = await axios.delete(`${process.env.REACT_APP_url}/api/neighbor/like/${location.state.postId}`, {
 			headers: headers
 		});
+
+		console.log("dislike", res)
+
+		setLikes(res.data.result.like_count)
+		setIsLike(false)
 	}
 
 	const handleLike = async () => {
 		const headers = getHeaders();
 
-		const res = await axios.post(`${process.env.REACT_APP_url}/api/product/like/${location.state.postId}`, null, {
+		const res = await axios.post(`${process.env.REACT_APP_url}/api/neighbor/like/${location.state.postId}`, null, {
 			headers: headers
 		});
+
+		console.log("like", res)
+
+		setLikes(res.data.result.like_count)
+		setIsLike(true)
 	}
 
 	return (
@@ -70,7 +80,7 @@ export const NeighborArticle = () => {
 				<h4>{post.title}</h4>
 				<p className="mt-lg-5 mb-lg-5">{post.content}</p>
 				<p style={{color: '#868E96'}}>{post.category} ∙ {calculateDate(new Date(post.created_time))}</p>
-				<p style={{color: '#868E96'}}>좋아요 {post.like_count} ∙ 조회 {post.hit_count}</p>
+				<p style={{color: '#868E96'}}>좋아요 {likes} ∙ 조회 {post.hit_count}</p>
 				<div className="row">
 					<div className="col">
 						{
