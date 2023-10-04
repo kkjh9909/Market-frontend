@@ -54,9 +54,8 @@ export const FleaMarket = () => {
 				setPosts(res.data.result.posts)
 				setCount(res.data.result.count);
 			}
-			else {
+			else
 				setPosts([...posts, ...res.data.result.posts])
-			}
 		}
 
 		getPosts();
