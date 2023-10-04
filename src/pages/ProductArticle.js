@@ -35,22 +35,22 @@ export const ProductArticle = () => {
 				headers: headers
 			});
 			
-			setPrice(res.data.post_info.price);
-			setImages(res.data.post_info.images);
-			setIsMine(res.data.user_info.my_post);
-			setIsLike(res.data.user_info.is_like);
-			setLikes(res.data.post_info.favorite_count);
+			setPrice(res.data.result.post_info.price);
+			setImages(res.data.result.post_info.images);
+			setIsMine(res.data.result.user_info.my_post);
+			setIsLike(res.data.result.user_info.is_like);
+			setLikes(res.data.result.post_info.favorite_count);
 
-			setPost(res.data.post_info);
-			setUser(res.data.user_info);
+			setPost(res.data.result.post_info);
+			setUser(res.data.result.user_info);
 
-			return res.data.post_info.category;
+			return res.data.result.post_info.category;
 		}
 
 		const getRelated = async (category) => {
 			const res2 = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list/${category}`);
 
-			setRelatedPosts(res2.data.post_info);
+			setRelatedPosts(res2.data.result.post_info);
 		}
 
 		getPost().then(category => getRelated(category))
@@ -65,7 +65,7 @@ export const ProductArticle = () => {
 		});
 
 		setIsLike(true);
-		setLikes(res.data.favorite_count)
+		setLikes(res.data.result.favorite_count)
 	}
 
 	const handleDislike = async () => {
@@ -76,7 +76,7 @@ export const ProductArticle = () => {
 		});
 
 		setIsLike(false);
-		setLikes(res.data.favorite_count)
+		setLikes(res.data.result.favorite_count)
 	}
 
 	const handleChatting = async () => {
@@ -86,7 +86,7 @@ export const ProductArticle = () => {
 			headers: headers
 		});
 
-		nav(`/chat/${res.data.chatroom_number}`, { state: { room_id: res.data.chatroom_number, my_id: res.data.my_id } })
+		nav(`/chat/${res.data.result.chatroom_number}`, { state: { room_id: res.data.result.chatroom_number, my_id: res.data.result.my_id } })
 	}
 
 	const handleEdit = () => {

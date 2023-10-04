@@ -48,12 +48,20 @@ export const NeighborArticle = () => {
 
 	}
 
-	function handleDislike() {
+	const handleDislike = async () => {
+		const headers = getHeaders();
 
+		const res = await axios.post(`${process.env.REACT_APP_url}/api/product/like/${location.state.postId}`, null, {
+			headers: headers
+		});
 	}
 
-	function handleLike() {
+	const handleLike = async () => {
+		const headers = getHeaders();
 
+		const res = await axios.post(`${process.env.REACT_APP_url}/api/product/like/${location.state.postId}`, null, {
+			headers: headers
+		});
 	}
 
 	return (

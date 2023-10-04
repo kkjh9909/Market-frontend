@@ -15,8 +15,6 @@ export const MyPostList = () => {
 
 			const res = await axios.get(`${process.env.REACT_APP_url}/api/product/post/my`, {headers});
 
-			console.log(res);
-
 			setPosts(res.data.result.posts);
 		}
 

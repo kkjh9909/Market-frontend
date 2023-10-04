@@ -44,7 +44,7 @@ export const ProductSaleWrite = () => {
 			}
 		})
 
-		nav("/flea");
+		nav(`/product/${res.data.result.post_id}`);
 	}
 
 	return (

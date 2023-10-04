@@ -50,6 +50,8 @@ export const FleaMarket = () => {
 				headers: headers
 			});
 
+			console.log(res)
+
 			setPosts(res.data.result.posts)
 			setCount(res.data.result.count);
 		}

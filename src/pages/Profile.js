@@ -15,11 +15,8 @@ export const Profile = () => {
 		const getProfile = async () => {
 			const headers = getHeaders();
 
-			console.log(headers)
 			const res = await axios.get(`${process.env.REACT_APP_url}/api/user/profile`, {headers});
 			setProfile(res.data.result);
-
-			console.log(res.data)
 		}
 
 		getProfile();

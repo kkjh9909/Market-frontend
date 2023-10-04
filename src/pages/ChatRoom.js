@@ -41,8 +41,7 @@ export const ChatRoom = () => {
 			client.current.connect(headers, () => {
 
 				client.current.subscribe(`/topic/${location.state.room_id}`, function(message){
-					//setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
-					setMessages([...res.data.messages.chats, message]);
+					setMessages([...res.data.result.messages.chats, message]);
 				})
 			})
 		}
@@ -59,8 +58,8 @@ export const ChatRoom = () => {
 				headers: headers
 			});
 
-			setCount(res.data.count);
-			setMessages((prevMessages) => [...prevMessages, ...res.data.messages.chats]);
+			setCount(res.data.result.count);
+			setMessages((prevMessages) => [...prevMessages, ...res.data.result.messages.chats]);
 		}
 
 		getMessages();

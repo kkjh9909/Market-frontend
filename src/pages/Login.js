@@ -24,7 +24,7 @@ export const Login = () => {
 			"password": password
 		});
 
-		setCookies(res.data.access_token);
+		setCookies(res.data.result.access_token);
 
 		navigate("/home");
 	};
