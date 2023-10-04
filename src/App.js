@@ -18,6 +18,7 @@ import {MyPostList} from "./pages/MyPostList";
 import {EditProductArticle} from "./pages/EditProductArticle";
 import {Neighborhood} from "./pages/Neighborhood";
 import {NeighborhoodWrite} from "./pages/NeighborhoodWrite";
+import {NeighborArticle} from "./pages/NeighborArticle";
 
 function App() {
     return (
@@ -43,6 +44,7 @@ function App() {
                         {/*동네 생활*/}
                         <Route path="/neighbor" element={<Neighborhood />}></Route>
                         <Route path="/neighbor/write" element={<NeighborhoodWrite />}></Route>
+                        <Route path="/neighbor/:postId" element={<NeighborArticle />}></Route>
                         <Route path="/test" element={<Test />}></Route>
                     </Routes>
                 </BrowserRouter>

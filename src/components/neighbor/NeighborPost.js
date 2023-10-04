@@ -4,12 +4,18 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import {useContext} from "react";
 import {Context} from "../../context/Context";
+import {Link} from "react-router-dom";
 
 export const NeighborPost = ({post}) => {
 
 	const {calculateDate} = useContext(Context);
 
 	return (
+		<Link
+			to={`${post.id}`}
+			state={{postId : post.id}}
+			className="nav-link"
+		>
 		<div className="mt-1 text-start p-3">
 			<div>
 				<p className="category">{post.category}</p>
@@ -37,5 +43,6 @@ export const NeighborPost = ({post}) => {
 			</div>
 			<hr />
 		</div>
+		</Link>
 	)
 }
