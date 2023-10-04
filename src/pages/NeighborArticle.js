@@ -92,7 +92,7 @@ export const NeighborArticle = () => {
 			<hr />
 			<div>
 				{
-					post.images.map(image => (
+					images.map(image => (
 						<img src={image} />
 					))
 				}
