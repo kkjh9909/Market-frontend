@@ -39,7 +39,6 @@ export const CommentList = ({comments, setComments}) => {
 
 		const newReply = res.data.result.comment;
 
-		console.log(index);
 		const newComments = [...comments];
 		newComments[index].replies.push(newReply);
 
@@ -55,6 +54,41 @@ export const CommentList = ({comments, setComments}) => {
 		newWriteReply[index] = !newWriteReply[index];
 		setWriteReply(newWriteReply);
 	};
+
+	const handleLike = async (commentId) => {
+		const headers = getHeaders();
+
+		const res = await axios.post(`${process.env.REACT_APP_url}/api/neighbor/comment/like/${commentId}`, null, {
+			headers
+		})
+
+		const updatedComments = [...comments];
+
+		const commentIndex = updatedComments.findIndex(comment => comment.id === commentId);
+		if (commentIndex !== -1) {
+			updatedComments[commentIndex] = { ...updatedComments[commentIndex], is_like: true, like_count: res.data.result.like_count  };
+		}
+
+		setComments(updatedComments);
+	};
+
+
+	const handleDislike = async (commentId) => {
+		const headers = getHeaders();
+
+		const res = await axios.delete(`${process.env.REACT_APP_url}/api/neighbor/comment/like/${commentId}`, {
+			headers
+		})
+
+		const updatedComments = [...comments];
+
+		const commentIndex = updatedComments.findIndex(comment => comment.id === commentId);
+		if (commentIndex !== -1) {
+			updatedComments[commentIndex] = { ...updatedComments[commentIndex], is_like: false, like_count: res.data.result.like_count  };
+		}
+
+		setComments(updatedComments);
+	}
 
 	return (
 		<div className="text-start mt-3">
@@ -78,8 +112,15 @@ export const CommentList = ({comments, setComments}) => {
 											</div>
 											<div className="col-auto">
 												<p>
-													<button className="btn"><ThumbUpAltIcon/></button>
-													{comment.like_count}</p>
+													{
+														comment.is_like ? (
+															<button className="btn" onClick={() => handleDislike(comment.id)}><ThumbUpAltIcon/></button>
+														) : (
+															<button className="btn" onClick={() => handleLike(comment.id)}><ThumbUpOffAltIcon/></button>
+														)
+													}
+													{comment.like_count}
+												</p>
 											</div>
 											<div className="row">
 												<div className="col-auto">
@@ -93,6 +134,9 @@ export const CommentList = ({comments, setComments}) => {
 							{
 								comment.replies.length > 0 ? comment.replies.map(reply => (
 									<Reply
+										comment={comment}
+										comments={comments}
+										setComments={setComments}
 										reply={reply}
 										index={index}
 										toggleWriteReply={toggleWriteReply}

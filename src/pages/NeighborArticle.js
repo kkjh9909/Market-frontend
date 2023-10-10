@@ -43,7 +43,11 @@ export const NeighborArticle = () => {
 
 	useEffect(() => {
 		const getComments = async () => {
-			const res = await axios.get(`${process.env.REACT_APP_url}/api/neighbor/comment/${location.state.postId}/list`)
+			const headers = getHeaders();
+
+			const res = await axios.get(`${process.env.REACT_APP_url}/api/neighbor/comment/${location.state.postId}/list`, {
+				headers
+			})
 
 			console.log(res)
 
