@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from "react";
+import React, {createContext} from "react";
 import cookie from "react-cookies";
 
 const Context = createContext({})
@@ -23,6 +23,17 @@ const ContextProvider = ({children}) => {
 		return `${Math.floor(years)}년 전`;
 	}
 
+	const monthDayTime = (date) => {
+		const dateTime = new Date(date);
+
+		const month = dateTime.getMonth() + 1;
+		const day = dateTime.getDate();
+		const hours = dateTime.getHours();
+		const minutes = dateTime.getMinutes();
+
+		return `${month}/${day} ${hours}:${minutes}`;
+	}
+
 	const getHeaders = () => {
 		const headers = {};
 
@@ -39,7 +50,7 @@ const ContextProvider = ({children}) => {
 	}
 
 	return (
-		<Context.Provider value={{calculateDate, getHeaders, formatPrice}}>
+		<Context.Provider value={{calculateDate, getHeaders, formatPrice, monthDayTime}}>
 			{children}
 		</Context.Provider>
 	)

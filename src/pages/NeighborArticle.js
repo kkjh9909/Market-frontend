@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {Context} from "../context/Context";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import {CommentList} from "../components/neighbor/CommentList";
 
 export const NeighborArticle = () => {
 
@@ -18,7 +19,7 @@ export const NeighborArticle = () => {
 
 	const [post, setPost] = useState({});
 	const [user, setUser] = useState({});
-	const [relatedPosts, setRelatedPosts] = useState({});
+	const [comments, setComments] = useState([])
 
 	useEffect(() => {
 		const getPost = async () => {
@@ -38,6 +39,18 @@ export const NeighborArticle = () => {
 		}
 
 		getPost();
+	}, [location.state.postId])
+
+	useEffect(() => {
+		const getComments = async () => {
+			const res = await axios.get(`${process.env.REACT_APP_url}/api/neighbor/comment/${location.state.postId}/list`)
+
+			console.log(res)
+
+			setComments(res.data.result.comments);
+		}
+
+		getComments();
 	}, [])
 
 	function handleEdit() {
@@ -51,11 +64,9 @@ export const NeighborArticle = () => {
 	const handleDislike = async () => {
 		const headers = getHeaders();
 
-		const res = await axios.delete(`${process.env.REACT_APP_url}/api/neighbor/like/${location.state.postId}`, {
+		const res = await axios.delete(`${process.env.REACT_APP_url}/api/neighbor/post/like/${location.state.postId}`, {
 			headers: headers
 		});
-
-		console.log("dislike", res)
 
 		setLikes(res.data.result.like_count)
 		setIsLike(false)
@@ -64,11 +75,9 @@ export const NeighborArticle = () => {
 	const handleLike = async () => {
 		const headers = getHeaders();
 
-		const res = await axios.post(`${process.env.REACT_APP_url}/api/neighbor/like/${location.state.postId}`, null, {
+		const res = await axios.post(`${process.env.REACT_APP_url}/api/neighbor/post/like/${location.state.postId}`, null, {
 			headers: headers
 		});
-
-		console.log("like", res)
 
 		setLikes(res.data.result.like_count)
 		setIsLike(true)
@@ -130,6 +139,10 @@ export const NeighborArticle = () => {
 				</div>
 			</div>
 			<hr />
+			<CommentList
+				comments={comments}
+				setComments={setComments}
+			/>
 		</div>
 	)
 }
