@@ -50,7 +50,7 @@ export const ProductArticle = () => {
 		const getRelated = async (category) => {
 			const res2 = await axios.get(`${process.env.REACT_APP_url}/api/product/post/list/${category}`);
 
-			setRelatedPosts(res2.data.result.post_info);
+			setRelatedPosts(res2.data.result.posts);
 		}
 
 		getPost().then(category => getRelated(category))
