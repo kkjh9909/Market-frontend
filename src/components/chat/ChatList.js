@@ -13,13 +13,13 @@ export const ChatList = ({messages, me, message}) => {
 
 	useEffect(() => {
 		scrollToBottom();
-	}, [message]);
+	}, [messages]);
 
 	return (
 		<div className="scroll-container chat-bg"  ref={scrollContainerRef}>
 			<div className="content">
 					{
-						messages.reverse().map(message => (
+						messages.map(message => (
 							message.sender_id === me ? (
 								<MyChat
 									key={message.id}
