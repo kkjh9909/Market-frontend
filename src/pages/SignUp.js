@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {Context} from "../context/Context";
 
 export const SignUp = () => {
 
+	const [isDuplicate, setIsDuplicate] = useState(2);
 	const [userId, setUserId] = useState('');
 	const [password, setPassword] = useState('');
 	const [nickname, setNickname] = useState('');
@@ -35,6 +37,15 @@ export const SignUp = () => {
 	}
 
 	const handleSignUp = async () => {
+		if(userId === "" || password === "" || nickname === "" || username === "" || address === "") {
+			alert("* 표시가 있는 문항은 빈칸 없이 작성해 주세요")
+			return;
+		}
+		if(isDuplicate !== 0) {
+			alert("아이디 중복 검사를 해주세요")
+			return;
+		}
+
 		const res = await axios.post(`${process.env.REACT_APP_url}/api/user/signup`, {
 			"userId": userId,
 			"password": password,
@@ -56,6 +67,21 @@ export const SignUp = () => {
 
 	};
 
+	const checkId = async (e) => {
+		e.preventDefault();
+
+		try {
+			const res = await axios.post(`${process.env.REACT_APP_url}/api/user/check`, {
+				"userId": userId
+			});
+
+			setIsDuplicate(0);
+		}
+		catch(error) {
+			setIsDuplicate(1);
+		}
+	}
+
 	return (
 		<div className="container mt-5">
 			<div className="row justify-content-center">
@@ -74,17 +100,36 @@ export const SignUp = () => {
 							</div>
 							<form>
 								<div className="mb-3">
-									<label htmlFor="username" className="form-label">아이디</label>
-									<input
-										type="text"
-										className="form-control"
-										id="username"
-										value={userId}
-										onChange={e => setUserId(e.target.value)}
-									/>
+									<label htmlFor="username" className="form-label">아이디 *</label>
+									<div className="row">
+										<div className="col">
+											<input
+												type="text"
+												className="form-control"
+												id="username"
+												value={userId}
+												onChange={e => setUserId(e.target.value)}
+											/>
+										</div>
+										<div className="col-auto">
+											<button
+												className="ms-3 btn btn-primary"
+												onClick={checkId}
+											>중복 확인</button>
+										</div>
+										{
+											isDuplicate === 1 ? (
+												<p className="text-danger">중복된 아이디 입니다.</p>
+											) : isDuplicate === 0 ? (
+												<p className="text-success">사용 가능한 아이디 입니다.</p>
+											) : (
+												<></>
+											)
+										}
+									</div>
 								</div>
 								<div className="mb-3">
-									<label htmlFor="password" className="form-label">비밀번호</label>
+									<label htmlFor="password" className="form-label">비밀번호 *</label>
 									<input
 										type="password"
 										className="form-control"
@@ -94,7 +139,7 @@ export const SignUp = () => {
 									/>
 								</div>
 								<div className="mb-3">
-									<label htmlFor="username" className="form-label">사용자명</label>
+									<label htmlFor="username" className="form-label">사용자명 *</label>
 									<input
 										type="text"
 										className="form-control"
@@ -104,7 +149,7 @@ export const SignUp = () => {
 									/>
 								</div>
 								<div className="mb-3">
-									<label htmlFor="username" className="form-label">닉네임</label>
+									<label htmlFor="username" className="form-label">닉네임 *</label>
 									<input
 										type="text"
 										className="form-control"
@@ -114,7 +159,7 @@ export const SignUp = () => {
 									/>
 								</div>
 								<div className="col">
-									<label htmlFor="username" className="form-label">지역</label>
+									<label htmlFor="username" className="form-label">지역 *</label>
 									<select
 										className="form-control w-100"
 										id="selectOption"
