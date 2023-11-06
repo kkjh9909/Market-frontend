@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Login} from "./pages/Login";
 import {FleaMarket} from "./pages/FleaMarket";
-import {Nav} from "./components/nav/Nav";
+import {NavBar} from "./components/nav/NavBar";
 import {ProductSaleWrite} from "./pages/ProductSaleWrite";
 import {ProductArticle} from "./pages/ProductArticle";
 import {SignUp} from "./pages/SignUp";
@@ -26,7 +26,7 @@ function App() {
         <div className="App">
             <ContextProvider>
                 <BrowserRouter>
-                    <Nav />
+                    <NavBar />
                     <Routes>
                         <Route path="/" element={<Home />}></Route>
                         <Route path="/home" element={<Home />}></Route>
