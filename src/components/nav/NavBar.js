@@ -50,7 +50,7 @@ export const NavBar = () => {
 					isLogin ? (
 						<div className="row">
 							<div className="col-auto">
-								<Link className="nav-link" to={"/profile"}>내 프로필</Link>
+								<button className="btn btn-outline-primary" onClick={() => nav("/profile")}>내 프로필</button>
 							</div>
 							<div className="col-auto">
 								<button
