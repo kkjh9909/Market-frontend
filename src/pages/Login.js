@@ -19,15 +19,27 @@ export const Login = () => {
 	}
 
 	const handleLogin = async () => {
-		const res = await axios.post(`${process.env.REACT_APP_url}/api/user/signin`, {
-			"userId": userId,
-			"password": password
-		});
+		try {
+			const res = await axios.post(`${process.env.REACT_APP_url}/api/user/signin`, {
+				"userId": userId,
+				"password": password
+			});
 
-		setCookies(res.data.result.access_token);
+			setCookies(res.data.result.access_token);
 
-		navigate("/home");
+			navigate("/home");
+		}
+		catch (err) {
+			alert("로그인 정보가 일치하지 않습니다.");
+			return;
+		}
 	};
+
+	const handleSubmit = (e) => {
+		if(e.key === "Enter")
+			handleLogin()
+
+	}
 
 	return (
 		<div className="container mt-5">
@@ -45,6 +57,7 @@ export const Login = () => {
 										id="username"
 										value={userId}
 										onChange={e => setUserId(e.target.value)}
+										onKeyPress={handleSubmit}
 									/>
 								</div>
 								<div className="mb-3">
@@ -55,6 +68,7 @@ export const Login = () => {
 										id="password"
 										value={password}
 										onChange={e => setPassword(e.target.value)}
+										onKeyPress={handleSubmit}
 									/>
 								</div>
 								<button type="button" className="btn btn-primary btn-block" onClick={handleLogin}>로그인</button>
