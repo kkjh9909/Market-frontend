@@ -19,6 +19,7 @@ import {EditProductArticle} from "./pages/EditProductArticle";
 import {Neighborhood} from "./pages/Neighborhood";
 import {NeighborhoodWrite} from "./pages/NeighborhoodWrite";
 import {NeighborArticle} from "./pages/NeighborArticle";
+import {Home} from "./pages/Home";
 
 function App() {
     return (
@@ -27,6 +28,8 @@ function App() {
                 <BrowserRouter>
                     <Nav />
                     <Routes>
+                        <Route path="/" element={<Home />}></Route>
+                        <Route path="/home" element={<Home />}></Route>
                         <Route path="/login" element={<Login />}></Route>
                         <Route path="/signup" element={<SignUp />}></Route>
                         <Route path="/product/write" element={<ProductSaleWrite />}></Route>
