@@ -11,7 +11,7 @@ export const Neighborhood = () => {
 	const nav = useNavigate();
 
 	const topics = [
-		"인기글", "일상", "동네질문", "생활정보", "취미생활"
+		"인기", "일상", "동네질문", "생활정보", "취미생활"
 	]
 
 	const [page, setPage] = useState(0);
