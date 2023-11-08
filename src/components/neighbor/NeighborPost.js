@@ -12,7 +12,7 @@ export const NeighborPost = ({post}) => {
 
 	return (
 		<Link
-			to={`${post.id}`}
+			to={`/neighbor/${post.id}`}
 			state={{postId : post.id}}
 			className="nav-link"
 		>

@@ -21,6 +21,7 @@ import {NeighborhoodWrite} from "./pages/NeighborhoodWrite";
 import {NeighborArticle} from "./pages/NeighborArticle";
 import {Home} from "./pages/Home";
 import PrivateRoute from "./context/PrivateRoute";
+import {MyNeighborPostList} from "./pages/MyNeighborPostList";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
                         <Route path="/profile/chatrooms" element={<PrivateRoute component={<ChatRoomList />} />}/>
                         <Route path="/profile/favorites" element={<PrivateRoute component={<FavoritePostList />} />}/>
                         <Route path="/profile/posts" element={<PrivateRoute component={<MyPostList />} />}/>
+                        <Route path="/profile/neighbors" element={<PrivateRoute component={<MyNeighborPostList />} />}/>
                         <Route path="/profile" element={<PrivateRoute component={<Profile />} />}/>
 
                         {/*동네 생활*/}

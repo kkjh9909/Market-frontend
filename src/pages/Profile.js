@@ -69,6 +69,10 @@ export const Profile = () => {
 		nav('posts')
 	}
 
+	const navNeighborList = () => {
+		nav('neighbors')
+	}
+
 	const customStyles = {
 		content: {
 			width: '50%', // 모달의 가로 크기
@@ -101,6 +105,8 @@ export const Profile = () => {
 
 		setModalIsOpen(false);
 	}
+
+
 
 	return (
 		<div className="container mt-lg-5 border">
@@ -192,7 +198,7 @@ export const Profile = () => {
 					<h1>일상</h1>
 				</div>
 				<div className="mt-lg-2">
-					<button className="btn btn-light w-100">내 일상글/댓글 목록</button>
+					<button className="btn btn-light w-100" onClick={navNeighborList}>내 일상글/댓글 목록</button>
 				</div>
 			</div>
 		</div>
